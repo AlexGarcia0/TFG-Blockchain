@@ -1,0 +1,9 @@
+# Ignorar todo por defecto
+*
+
+# ¡Pero no ignores estos dos directorios!
+!test-network/
+!next-api-blockchain/
+
+# También asegúrate de subir el .gitignore
+!.gitignore
