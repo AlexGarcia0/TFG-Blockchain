@@ -1,0 +1,59 @@
+{
+  "@context": [
+    "https://www.w3.org/2018/credentials/v1",
+    "https://w3id.org/security/suites/ed25519-2020/v1",
+    "https://example.com/context"
+  ],
+  "id": "https://example.com/credentials/paciente-ebsi",
+  "type": [
+    "VerifiableCredential",
+    "VerifiableAttestation",
+    "VerifiablePID",
+    "PacienteCredential"
+  ],
+  "issuer": {
+    "id": "did:ebsi:123"
+  },
+  "issuanceDate": "2025-05-04T20:04:51.704Z",
+  "validFrom": "2025-05-04T20:04:51.704Z",
+  "validUntil": "2026-05-04T20:04:51.704Z",
+  "credentialSchema": {
+    "id": "https://api.ebsi.eu/tsr",
+    "type": "https://w3id.org/security#JsonSchema"
+  },
+  "credentialStatus": {
+    "id": "https://api.ebsi.eu/csl",
+    "type": "https://example.com/terms/credentialStatus/Type/2023"
+  },
+  "credentialSubject": {
+    "id": "did:key:zmYg9bgKmRiCqTTd9MA1ufVE9tfzUptwQp4GMRxptXquJWw4Uj5d4PRNJBn5B1CoaBH5q9oyoTF4jkfbSKZR7C4XZLD1AFB9jGgg5e25NC6J8wXzU",
+    "personIdentificationData": {
+      "family_name": "Dubois",
+      "given_name": "Alex Garcia",
+      "birth_date": "1985-05-20",
+      "birth_place": "BE",
+      "nationality": [
+        "BE"
+      ],
+      "resident_address": "456 Elm Ave, Leuven, VBR 3000, Belgium",
+      "resident_country": "BE",
+      "resident_state": "VBR",
+      "resident_city": "Leuven",
+      "resident_postal_code": "3000",
+      "resident_street": "Elm Ave",
+      "resident_house_number": "456",
+      "personal_administrative_number": "987654321",
+      "sex": 2,
+      "expiry_date": "2026-05-04T20:04:51.704Z",
+      "issuing_authority": "",
+      "issuing_country": "BE"
+    }
+  },
+  "proof": {
+    "type": "Ed25519Signature2020",
+    "created": "2025-05-04T20:04:51Z",
+    "verificationMethod": "did:key:zmYg9bgKmRiCqTTd9MA1ufVE9tfzUptwQp4GMRxptXquJWw4Uj5d4PRNJBn5B1CoaBH5q9oyoTF4jkfbSKZR7C4XZLD1AFB9jGgg5e25NC6J8wXzU#key-1",
+    "proofPurpose": "assertionMethod",
+    "proofValue": "z2DzvYiiXmEwiDjNw9yJ7ENPTqoR7XDrS13rECajXKoXDMvYu3gzX7x6CxVc674F6NJLE1FvmfjyYBXkeYXJFsNyG"
+  }
+}

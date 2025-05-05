@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  ipfs-node:
+    image: ipfs/kubo:latest
+    container_name: ipfs-node
+    ports:
+      - "5001:5001"     # API
+      - "8080:8080"     # Gateway (para acceder a archivos por navegador)
+      - "4001:4001"     # Swarm (comunicación entre nodos)
+    volumes:
+      - ./ipfs-data:/data/ipfs

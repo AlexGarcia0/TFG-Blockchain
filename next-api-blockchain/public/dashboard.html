@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - Historial Médico</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="dashboard-header">
+        <h1 id="dashboard-title">Bienvenido</h1>
+        <button id="logout-btn" class="btn-logout">Cerrar Sesión</button>
+    </header>
+
+    <section class="intro-section">
+        <div class="intro-overlay">
+            <h2>¿Quiénes Somos?</h2>
+            <p>Somos una plataforma descentralizada de gestión de historiales médicos, construida sobre Blockchain e IPFS, garantizando máxima seguridad y privacidad de los datos.</p>
+            <p>Creemos en devolver el control de la información médica a los propios pacientes, de forma moderna, transparente y segura.</p>
+        </div>
+    </section>
+
+    <div id="toast" class="toast"></div>
+
+    <section class="dashboard-actions" id="actions"></section>
+
+    <main class="dashboard-main">
+        <div id="output" class="dashboard-output"></div>
+    </main>
+
+    <input type="file" id="fileInput" style="display: none;">
+
+    <script src="dashboard.js"></script>
+    <footer class="dashboard-footer">
+        <p>© 2025 Sistema Médico Descentralizado. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>

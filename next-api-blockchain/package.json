@@ -1,0 +1,47 @@
+{
+  "name": "next-api-blockchain",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@digitalbazaar/did-method-key": "^5.2.0",
+    "@digitalbazaar/ed25519-signature-2020": "^5.4.0",
+    "@digitalbazaar/ed25519-verification-key-2020": "^4.2.0",
+    "@digitalbazaar/security-context": "^1.0.1",
+    "@digitalbazaar/vc": "^7.2.0",
+    "axios": "^1.8.4",
+    "did-resolver": "^4.1.0",
+    "fabric-network": "^2.2.20",
+    "form-data": "^4.0.2",
+    "formidable": "^3.5.2",
+    "fs": "^0.0.1-security",
+    "ipfs-http-client": "^60.0.1",
+    "jose": "^6.0.10",
+    "jsonld": "^8.3.3",
+    "jsonld-signatures": "^11.5.0",
+    "jsonwebtoken": "^9.0.2",
+    "key-did-resolver": "^4.0.0",
+    "next": "15.2.4",
+    "node-fetch": "^3.3.2",
+    "path": "^0.12.7",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "15.2.4",
+    "tailwindcss": "^4",
+    "tsx": "^4.19.4",
+    "typescript": "^5"
+  }
+}

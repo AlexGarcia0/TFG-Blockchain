@@ -1,0 +1,59 @@
+{
+  "@context": [
+    "https://www.w3.org/2018/credentials/v1",
+    "https://w3id.org/security/suites/ed25519-2020/v1",
+    "https://example.com/context"
+  ],
+  "id": "https://example.com/credentials/medico-ebsi",
+  "type": [
+    "VerifiableCredential",
+    "VerifiableAttestation",
+    "VerifiablePID",
+    "MedicoCredential"
+  ],
+  "issuer": {
+    "id": "did:ebsi:123"
+  },
+  "issuanceDate": "2025-05-04T20:07:22.523Z",
+  "validFrom": "2025-05-04T20:07:22.523Z",
+  "validUntil": "2026-05-04T20:07:22.523Z",
+  "credentialSchema": {
+    "id": "https://api.ebsi.eu/tsr",
+    "type": "https://w3id.org/security#JsonSchema"
+  },
+  "credentialStatus": {
+    "id": "https://api.ebsi.eu/csl",
+    "type": "https://example.com/terms/credentialStatus/Type/2023"
+  },
+  "credentialSubject": {
+    "id": "did:key:zmYg9bgKmRiCqTTd9MA1ufVE9tfzUptwQp4GMRxptXquJWw4Uj5d4PRNJBn5B1CoaBH5q9oyoTF4jkfbSKZR7C4XZLD1AFB9jGgg5e25NC6J8wXzU",
+    "personIdentificationData": {
+      "family_name": "Medina",
+      "given_name": "Dr. Medina",
+      "birth_date": "1975-08-25",
+      "birth_place": "ES",
+      "nationality": [
+        "ES"
+      ],
+      "resident_address": "123 Medical St, Madrid, ES",
+      "resident_country": "ES",
+      "resident_state": "Madrid",
+      "resident_city": "Madrid",
+      "resident_postal_code": "28001",
+      "resident_street": "Medical St",
+      "resident_house_number": "123",
+      "personal_administrative_number": "MD987654321",
+      "sex": 1,
+      "expiry_date": "2026-05-04T20:07:22.523Z",
+      "issuing_authority": "Health Ministry",
+      "issuing_country": "ES"
+    }
+  },
+  "proof": {
+    "type": "Ed25519Signature2020",
+    "created": "2025-05-04T20:07:22Z",
+    "verificationMethod": "did:key:zmYg9bgKmRiCqTTd9MA1ufVE9tfzUptwQp4GMRxptXquJWw4Uj5d4PRNJBn5B1CoaBH5q9oyoTF4jkfbSKZR7C4XZLD1AFB9jGgg5e25NC6J8wXzU#key-1",
+    "proofPurpose": "assertionMethod",
+    "proofValue": "zqMYGViG7cYQNkaz8BtUEJk9pYCgPpoek6fBuKaDvgeD6tEQuX4roLnodgd7bTzUtLW3M56sXNQsu1zArfiJ1bM2"
+  }
+}

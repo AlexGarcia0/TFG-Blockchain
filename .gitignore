@@ -1,9 +1,12 @@
-# Ignorar todo por defecto
+# Ignorar todo
 *
 
-# Permitir los dos directorios con todo su contenido
+# Permitir estas dos carpetas y todo su contenido (archivos y subdirectorios)
+!test-network/
 !test-network/**
+
+!next-api-blockchain/
 !next-api-blockchain/**
 
-# Permitir el .gitignore
+# No ignorar el propio .gitignore
 !.gitignore

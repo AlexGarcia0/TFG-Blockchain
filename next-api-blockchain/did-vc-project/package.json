@@ -1,0 +1,25 @@
+{
+  "name": "did-vc-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@digitalbazaar/did-method-key": "^5.2.0",
+    "@digitalbazaar/ed25519-signature-2020": "^5.4.0",
+    "@digitalbazaar/ed25519-verification-key-2020": "^4.2.0",
+    "@digitalbazaar/vc": "^7.2.0",
+    "did-resolver": "^4.1.0",
+    "fs": "^0.0.1-security",
+    "jsonld": "^8.3.3",
+    "jsonld-signatures": "^11.5.0",
+    "key-did-resolver": "^4.0.0",
+    "path": "^0.12.7"
+  }
+}

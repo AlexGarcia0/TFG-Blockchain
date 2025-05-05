@@ -1,0 +1,31 @@
+{
+    "@context": [
+      "https://www.w3.org/2018/credentials/v1",
+      "https://w3id.org/security/suites/ed25519-2020/v1",
+      {
+        "name": "https://schema.org/name",
+        "role": "https://schema.org/roleName"
+      }
+    ],
+    "id": "https://example.com/credentials/001",
+    "type": [
+      "VerifiableCredential"
+    ],
+    "issuer": {
+      "id": "did:key:z6Mkk1JnKCHiBPZF9NSkXcvfA972T3oZq8EgUqMVYtLw3kBo"
+    },
+    "issuanceDate": "2025-05-02T13:31:07.434Z",
+    "credentialSubject": {
+      "id": "did:key:zmYg9bgKmRiCqTTd9MA1ufVE9tfzUptwQp4GMRxptXquJWw4Uj5cudZtt8FR1svuKxGTd6Xkg7dWCuNPK7iLVrbFnnuQtYj2pApwgNqJyaiHxpbhW",
+      "name": "Alex",
+      "role": "Paciente"
+    },
+    "proof": {
+      "type": "Ed25519Signature2020",
+      "created": "2025-05-02T13:31:07Z",
+      "verificationMethod": "did:key:z6Mkk1JnKCHiBPZF9NSkXcvfA972T3oZq8EgUqMVYtLw3kBo#key-1",
+      "proofPurpose": "assertionMethod",
+      "proofValue": "z5ieRUW39fBxR2EcF84wgKdQqwFxXjiyyGXQw2WrqudqYBBHiEFKCqYB5zi58oeueXiNzdfNfKJ94M1xxMTEtkun4"
+    }
+  }
+  

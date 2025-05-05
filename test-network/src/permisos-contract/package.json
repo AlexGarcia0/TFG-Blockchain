@@ -1,0 +1,16 @@
+{
+  "name": "permisos-contract",
+  "version": "1.0.0",
+  "description": "",
+  "main": "permisos.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node permisos.js"
+  },
+  "dependencies": {
+    "fabric-contract-api": "^2.3.0"
+  },
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC"
+}
