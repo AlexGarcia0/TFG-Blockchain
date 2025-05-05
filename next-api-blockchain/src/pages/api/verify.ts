@@ -12,12 +12,12 @@ const { AssertionProofPurpose } = purposes;
 
 // Claves públicas conocidas
 const issuerDidKey1 = 'did:key:zmYg9bgKmRiCqTTd9MA1ufVE9tfzUptwQp4GMRxptXquJWw4Uj5d4PRNJBn5B1CoaBH5q9oyoTF4jkfbSKZR7C4XZLD1AFB9jGgg5e25NC6J8wXzU';
-const issuerDidKey2 = 'did:key:zmYg9bgKmRiCqTTd9MA1ufVE9tfzUptwQp4GMRxptXquJWw4Uj5d2qcJ41HbZXCNYRMUvzcYkYveR3jB8QP8pCScUnrCCe95rZLuZMqbuGJcLuCP6'; // Nueva clave del médico Juan
+const issuerDidKey2 = 'did:key:zmYg9bgKmRiCqTTd9MA1ufVE9tfzUptwQp4GMRxptXquJWw4Uj5d2qcJ41HbZXCNYRMUvzcYkYveR3jB8QP8pCScUnrCCe95rZLuZMqbuGJcLuCP6'; 
 const issuerDidEbsi = 'did:ebsi:123';
 
 const publicKeyMap: Record<string, string> = {
   [issuerDidKey1]: 'z6Mkhu6G6yB49C44LCJMgqNbEVaeYz3Ay2UmKV8vpD5w5QPQ',
-  [issuerDidKey2]: 'z6MkkEHvq9jq9K1zaeC1kkfRRE3LDd5rw4Y5oKxQRXem4G7u', // Nueva clave pública de Juan
+  [issuerDidKey2]: 'z6MkkEHvq9jq9K1zaeC1kkfRRE3LDd5rw4Y5oKxQRXem4G7u', 
   [issuerDidEbsi]: 'z6Mkk1JnKCHiBPZF9NSkXcvfA972T3oZq8EgUqMVYtLw3kBo'
 };
 
@@ -119,7 +119,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
 
     if (!result.verified) {
-      console.error("❌ Verificación fallida:", result);
+      console.error("Verificación fallida:", result);
       return res.status(400).json({ valid: false, error: 'Verificación fallida', details: result });
     }
 
@@ -146,7 +146,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     return res.json({ valid: true, token });
   } catch (err: any) {
-    console.error('🔴 Error en verificación:', err);
+    console.error('Error en verificación:', err);
     return res.status(500).json({ valid: false, error: err.message });
   }
 }
