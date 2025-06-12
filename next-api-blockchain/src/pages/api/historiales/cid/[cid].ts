@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { checkAccess, listarHistoriales, getClave } from '@/controllers/permisosController';
+import { checkAccess, listarHistoriales, getAllHistoriales, getClave } from '@/controllers/permisosController';
 import { getTokenData } from '@/middleware/auth';
 import { downloadFromIPFS } from '@/lib/ipfs/download';
 
@@ -19,8 +19,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const userData = getTokenData(token);
     const userId = userData?.id;
+    const role = userData?.role;
 
-    if (userData.role === 'paciente') {
+    if (role === 'paciente') {
       const historiales = await listarHistoriales(userId);
       const tieneHistorial = historiales.some((h: any) => h.cid === cid);
       if (!tieneHistorial) {
@@ -28,7 +29,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
     }
 
-    if (userData.role === 'medico') {
+    if (role === 'medico') {
       const tienePermiso = await checkAccess(userId, cid);
       if (!tienePermiso) {
         return res.status(403).json({ error: 'El médico no tiene acceso a este historial' });
@@ -37,17 +38,29 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // Descargar desde IPFS
     const encryptedBuffer = await downloadFromIPFS(cid);
-    const encryptedText = encryptedBuffer.toString(); // texto cifrado en formato base64/json
+    const encryptedText = encryptedBuffer.toString();
 
-    // Si es médico, incluir clave si está disponible
-    let response: any = { contenido: encryptedText };
+    // Buscar en la blockchain los metadatos del historial
+    const todos = await getAllHistoriales();
+    const historial = todos.find((h: any) => h.cid === cid);
 
-    if (userData.role === 'medico') {
+    if (!historial) {
+      return res.status(404).json({ error: 'Historial no encontrado en la blockchain' });
+    }
+
+    const response: any = {
+      contenido: encryptedText,
+      pacienteId: historial.pacienteId,
+      nombreArchivo: historial.nombreArchivo
+    };
+
+    if (role === 'medico') {
       const clave = await getClave(userId, cid);
       if (clave) response.clave = clave;
     }
 
     return res.status(200).json(response);
+
   } catch (error: any) {
     console.error('Error al obtener historial:', error);
     return res.status(500).json({ error: 'Error interno del servidor' });

@@ -291,7 +291,82 @@ class PermisosContract extends Contract {
         }
         return data.toString(); // JSON serializado
     }
-    
+
+    async registrarAcceso(ctx, medicoId, pacienteId, cid, timestamp, medicoName, nombreArchivo) {
+  const accessKey = `access_${medicoId}_${cid}`;
+  const accessBytes = await ctx.stub.getState(accessKey);
+
+  if (!accessBytes || accessBytes.length === 0) {
+    throw new Error(`El médico ${medicoId} no tiene acceso al historial ${cid}.`);
+  }
+
+  const access = JSON.parse(accessBytes.toString());
+  if (!access.granted) {
+    throw new Error(`El acceso al historial ${cid} ha sido revocado.`);
+  }
+
+  const key = `registroAcceso_${medicoId}_${cid}_${timestamp}`;
+  const record = {
+    medicoId,
+    pacienteId,
+    cid,
+    timestamp,
+    medicoName,
+    nombreArchivo
+  };
+
+  await ctx.stub.putState(key, Buffer.from(JSON.stringify(record)));
+
+  return `Acceso registrado para el médico ${medicoId}.`;
+}
+
+
+
+    async listarAccesosPorPaciente(ctx, pacienteId) {
+    const iterator = await ctx.stub.getStateByRange('', '');
+    const resultados = [];
+
+    while (true) {
+        const res = await iterator.next();
+        if (res.value && res.value.value.toString()) {
+            try {
+                const key = res.value.key;
+                if (key.startsWith('registroAcceso_')) {
+                    const value = JSON.parse(res.value.value.toString());
+                    if (value.pacienteId === pacienteId) {
+                        resultados.push(value);
+                    }
+                }
+            } catch (error) {
+                console.error("Error al parsear acceso:", error);
+            }
+        }
+        if (res.done) {
+            await iterator.close();
+            break;
+        }
+    }
+
+    return JSON.stringify(resultados);
+    }
+
+    async obtenerClave(ctx, medicoId, cid) {
+    const accessKey = `access_${medicoId}_${cid}`;
+    const accessBytes = await ctx.stub.getState(accessKey);
+
+    if (!accessBytes || accessBytes.length === 0) {
+        throw new Error(`No hay permiso registrado para el médico ${medicoId} al historial ${cid}.`);
+    }
+
+    const access = JSON.parse(accessBytes.toString());
+
+    if (!access.granted) {
+        throw new Error(`El permiso ha sido revocado para el historial ${cid}.`);
+    }
+
+    return access.clave;
+    }
+   
 }
 
 module.exports = PermisosContract;

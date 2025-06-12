@@ -77,6 +77,37 @@ export async function listRequests(pacienteId: string) {
   return JSON.parse(result.toString());
 }
 
+
+export async function registrarAcceso(
+  medicoId: string,
+  pacienteId: string,
+  cid: string,
+  timestamp: string,
+  medicoName: string,
+  nombreArchivo: string
+) {
+  const { contract, gateway } = await connectToContract();
+  await contract.submitTransaction('registrarAcceso', medicoId, pacienteId, cid, timestamp, medicoName, nombreArchivo);
+  await gateway.disconnect();
+}
+
+
+
+export async function listarAccesosPorPaciente(pacienteId: string) {
+  const { contract, gateway } = await connectToContract();
+  const result = await contract.evaluateTransaction('listarAccesosPorPaciente', pacienteId);
+  await gateway.disconnect();
+  return JSON.parse(result.toString());
+}
+
+export async function obtenerClave(medicoId: string, cid: string) {
+  const { contract, gateway } = await connectToContract();
+  const result = await contract.evaluateTransaction('obtenerClave', medicoId, cid);
+  await gateway.disconnect();
+  return result.toString(); // devuelve la clave si hay permiso
+}
+
+
 // ====================
 // Manejo de claves en memoria (opcional y temporal)
 // ====================

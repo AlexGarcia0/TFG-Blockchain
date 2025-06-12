@@ -272,10 +272,32 @@ async function subirHistorial() {
     const data = await resp.json();
     const encrypted = data.contenido;
   
-    if (!clave && role === 'medico' && data.clave) {
-      clave = data.clave;
-      clavesDeHistoriales[cid] = clave;
-    }
+    if (!clave && role === 'medico') {
+    const ts = new Date().toISOString();
+    const accesoResp = await fetch('/api/accesos/registrar', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        medicoId: userId,
+        pacienteId: data.pacienteId,
+        cid,
+        timestamp: ts,
+        medicoName: userName,           
+        nombreArchivo: data.nombreArchivo
+      })
+    });
+
+  const claveResp = await fetch(`/api/accesos/clave?medicoId=${userId}&cid=${cid}`);
+  const claveText = await claveResp.text();
+  if (claveResp.ok && claveText) {
+    clave = claveText;
+    clavesDeHistoriales[cid] = clave;
+  }
+}
+
   
     if (!clave) {
       showToast('Clave de descifrado no encontrada.', 'error');
@@ -477,7 +499,36 @@ async function subirHistorial() {
   }
   
   
-  
+  async function verHistorialDeAccesos() {
+  limpiarPantallas();
+  const resp = await fetch(`/api/accesos/paciente?pacienteId=${userId}`, {
+    headers: { 'Authorization': `Bearer ${token}` }
+  });
+
+  if (!resp.ok) {
+    showToast('Error al obtener accesos.', 'error');
+    return;
+  }
+
+  const { accesos } = await resp.json();
+  if (!accesos?.length) {
+    document.getElementById('output').textContent = 'No hay accesos registrados.';
+    return;
+  }
+
+  const out = document.getElementById('output');
+  accesos.forEach(acc => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+  <div><strong>Médico:</strong> ${acc.medicoName || acc.medicoId}</div>
+  <div><strong>Historial:</strong> ${acc.nombreArchivo || acc.cid}</div>
+  <div><strong>Fecha:</strong> ${new Date(acc.timestamp).toLocaleString()}</div>
+  `;
+    out.append(card);
+  });
+}
+
   
   function renderSolicitudes(solicitudes) {
     const out = document.getElementById('output'); out.innerHTML = '';
@@ -534,6 +585,8 @@ async function subirHistorial() {
         <button id="verHistorialesBtn" class="btn">Ver Mis Historiales</button>
         <button id="verSolicitudesBtn" class="btn">Ver Solicitudes de Acceso</button>
         <button id="verAccesosOtorgadosBtn" class="btn">Ver Accesos Otorgados</button>
+        <button id="verAccesosBtn" class="btn">Ver Historial de Accesos</button>
+
       `;
     } else {
       actions.innerHTML = `
@@ -549,6 +602,7 @@ async function subirHistorial() {
     document.getElementById('verSolicitudesBtn')?.addEventListener('click', verSolicitudes);
     document.getElementById('verAccesosOtorgadosBtn')?.addEventListener('click', verAccesosOtorgados);
     document.getElementById('buscarPacienteBtn')?.addEventListener('click', buscarPaciente);
+    document.getElementById('verAccesosBtn')?.addEventListener('click', verHistorialDeAccesos);
     document.getElementById('verHistorialesAutorizadosBtn')?.addEventListener('click', verHistorialesAutorizados);
     document.getElementById('logout-btn')?.addEventListener('click', () => {
       sessionStorage.removeItem('token');
